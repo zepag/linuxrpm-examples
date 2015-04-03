@@ -11,4 +11,9 @@ usage(){
 TARGET_OS="$1"
 shift
 mkdir -p "$PWD/OUTPUT/${TARGET_OS}"
-docker run -t -i -v $PWD/BUILDS/:/BUILDS-RO/:ro -v "$PWD/OUTPUT/${TARGET_OS}"/:/OUTPUT/:rw zepag/rpmbuild-${TARGET_OS} /BUILDS-RW/run-builds.sh "$@"
+docker run -t -i \
+  -v $PWD/BUILDS/:/BUILDS-RO/:ro \
+  -v "$PWD/OUTPUT/${TARGET_OS}"/:/OUTPUT/:rw \
+  -v "$PWD/BINARIES/"/:/BINARIES/:rw \
+  zepag/rpmbuild-${TARGET_OS} \
+  /BUILDS-RW/run-builds.sh "$@"
