@@ -3,6 +3,7 @@
 %define javarelease 40
 %define origin oracle
 %define DYNAMIC_LOADER_NAME ld-linux-x86-64.so.2()(64bit)
+%define __jar_repack %{nil}
 
 Name: devoxx-ex3-jdk-%{javaversion}_%{javarelease}-64bit
 Version: 1.0.0	
