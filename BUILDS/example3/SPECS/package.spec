@@ -1,3 +1,6 @@
+%if 0%{?suse_version}
+%define dist .suse%{suse_version}
+%endif
 %define installationPath /opt/devoxx-rpm
 %define javaversion 1.8.0
 %define javarelease 40

@@ -1,3 +1,6 @@
+%if 0%{?suse_version}
+%define dist .suse%{suse_version}
+%endif
 %{!?PRODUCT_VERSION: %define PRODUCT_VERSION 5.2.7}
 %define installationPath /opt/devoxx-rpm
 
