@@ -13,6 +13,7 @@ CONTAINER_HOST="$(echo ${TARGET_OS}|sed -e 's/\.//g').rpmbuild"
 shift
 mkdir -p "$PWD/OUTPUT/${TARGET_OS}"
 docker run -t -i \
+  --rm \
   -h ${CONTAINER_HOST} \
   -v $PWD/BUILDS/:/BUILDS-RO/:ro \
   -v "$PWD/OUTPUT/${TARGET_OS}"/:/OUTPUT/:rw \
