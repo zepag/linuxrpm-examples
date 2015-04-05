@@ -4,7 +4,7 @@ echo ----------------------------------------------------
 echo RPM package build script
 echo ----------------------------------------------------
 echo Jenkins environment:
-echo '  'SVN_REVISION: $SVN_REVISION
+echo '  'GIT_COMMIT: $GIT_COMMIT
 echo '  'BUILD_NUMBER: $BUILD_NUMBER
 echo '  'BUILD_ID: $BUILD_ID
 echo '  'JOB_NAME: $JOB_NAME
