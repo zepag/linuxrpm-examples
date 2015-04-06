@@ -18,5 +18,4 @@ docker run -t -i \
   -v $PWD/BUILDS/:/BUILDS-RO/:ro \
   -v "$PWD/OUTPUT/${TARGET_OS}"/:/OUTPUT/:rw \
   -v "$PWD/BINARIES/"/:/BINARIES/:rw \
-  zepag/rpmbuild-${TARGET_OS} \
-  /BUILDS-RW/run-builds.sh "$@"
+  zepag/rpmbuild-${TARGET_OS} "$@"
