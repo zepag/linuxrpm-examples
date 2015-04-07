@@ -14,9 +14,6 @@ Source0: wget-1.16.3.tar.gz
 
 Provides: wget
 
-#BuildRequires:	
-#Requires:	
-
 %description
 GNU Wget is a file retrieval utility which can use either the HTTP or
 FTP protocols. Wget features include the ability to work in the
@@ -37,12 +34,19 @@ make %{?_smp_mflags}
 %install
 cd $RPM_BUILD_DIR/%{name}-%{version}/wget-%{version}
 make install DESTDIR=%{buildroot}
+# Avoid conflict with info package
+rm %{buildroot}/usr/share/info/dir
+
+%post
+/sbin/install-info /usr/share/info/wget.info.gz /usr/share/info/dir || :
+
+%preun
+/sbin/install-info --delete /usr/share/info/wget.info.gz /usr/share/info/dir || :
 
 %files
 %defattr(-,root,root)
 %config /etc/wgetrc
 /usr/bin/wget
-/usr/share/info/dir
 /usr/share/info/wget.info.gz
 /usr/share/locale/be/LC_MESSAGES/wget.mo
 /usr/share/locale/bg/LC_MESSAGES/wget.mo
@@ -84,8 +88,7 @@ make install DESTDIR=%{buildroot}
 /usr/share/locale/zh_CN/LC_MESSAGES/wget.mo
 /usr/share/locale/zh_TW/LC_MESSAGES/wget.mo
 /usr/share/man/man1/wget.1.gz
-#%doc
 
 %changelog
-* Wed Apr 8 2015 Olivier Robert <bob@fake.com> 
+* Wed Apr 8 2015 Olivier Robert <bob@fake.com>
  - v1.16.3: living on the edge ;-)
