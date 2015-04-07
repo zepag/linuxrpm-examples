@@ -19,7 +19,8 @@ Source0: unrarsrc-%{PRODUCT_VERSION}.tar.gz
 
 
 %description
-This Package is an example package for Linux Packaging Lab in Devoxx France
+This Package is an example package for Linux Packaging Lab in Devoxx France.
+This package provides the binary for unrar, built from its sources.
 
 # Prep is used to set up the environment for building the rpm package
 # Expansion of source tar balls are done in this section

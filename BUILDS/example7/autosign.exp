@@ -1,0 +1,23 @@
+#!/usr/bin/expect --
+#
+# Automatically sign rpm packages.
+# The "expect" package must be installed.
+#
+# Usage: autosign.exp <gpg key> <passphrase file> <rpm1 [rpm2...[rpm3...]]>
+#
+# Copyright 2009 NC State University
+# Written by Jack Neely
+#
+# Licensed under the GNU GPL version 2.0 or, at your option,
+# any greater version
+
+set argc [llength $argv]
+set key [lindex $argv 0]
+set file [lindex $argv 1]
+
+for {set i 2} {$i<$argc} {incr i} {
+    spawn rpm -v --define "__gpg_sign_cmd %{__gpg} gpg --batch --no-verbose --no-armor --passphrase-file $file --no-secmem-warning -u \"%{_gpg_name}\" -sbo %{__signature_filename} %{__plaintext_filename}" --define "_gpg_name $key" --define "__gpg_check_password_cmd %{__gpg} gpg --batch --no-verbose --passphrase-file $file -u \"%{_gpg_name}\" -so -" --addsign [lindex $argv $i]
+    expect -exact "Enter pass phrase: "
+    send -- "Secret passphrase\r"
+    expect eof
+}

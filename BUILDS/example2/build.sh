@@ -27,9 +27,8 @@ echo
 echo ----------------------------------------------------
 echo Build the RPM
 echo ----------------------------------------------------
-rpmbuild --target=noarch --define="_topdir $PWD" --define="_tmppath $PWD/TEMP"  -bb SPECS/package.spec
+rpmbuild --target=noarch \
+  --define="_topdir $PWD" \
+  --define="_tmppath $PWD/TEMP" \
+  -bb SPECS/package.spec
 echo ----------------------------------------------------
-echo
-
-# Optionally signing and deploying: launch script with "sign" and/or "deploy" arguments.
-#. ./sign-deploy.sh $*

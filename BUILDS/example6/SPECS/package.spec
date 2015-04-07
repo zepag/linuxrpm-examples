@@ -2,7 +2,7 @@
 %define dist .suse%{suse_version}
 %endif
 
-Name: wget
+Name: devoxx-ex6-wget
 Version: 1.16.3
 Release: 1%{?dist}
 Summary: A utility for retrieving files using the HTTP or FTP protocols
@@ -11,6 +11,8 @@ Group: Application/Internet
 License: GPLv3+
 URL: http://www.gnu.org/software/wget/
 Source0: wget-1.16.3.tar.gz
+
+Provides: wget
 
 #BuildRequires:	
 #Requires:	
@@ -25,17 +27,16 @@ HTTP servers to retrieve files over slow or unstable connections,
 support for Proxy servers, and configurability.
 
 %prep
-%setup -q
-
+%setup -c
 
 %build
+cd $RPM_BUILD_DIR/%{name}-%{version}/wget-%{version}
 %configure
 make %{?_smp_mflags}
 
-
 %install
+cd $RPM_BUILD_DIR/%{name}-%{version}/wget-%{version}
 make install DESTDIR=%{buildroot}
-
 
 %files
 %defattr(-,root,root)
@@ -88,4 +89,3 @@ make install DESTDIR=%{buildroot}
 %changelog
 * Wed Apr 8 2015 Olivier Robert <bob@fake.com> 
  - v1.16.3: living on the edge ;-)
-

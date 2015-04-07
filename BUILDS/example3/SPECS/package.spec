@@ -2,13 +2,15 @@
 %define dist .suse%{suse_version}
 %endif
 %define installationPath /opt/devoxx-rpm
-%define javaversion 1.8.0
-%define javarelease 40
+%{!?JAVA_VERSION: %define JAVA_VERSION 1.8.0}
+%{!?JAVA_RELEASE: %define JAVA_RELEASE 40}
+%{!?JAVA_TM_VERSION: %define JAVA_TM_VERSION 8}
+%{!?JAVA_BUILD: %define JAVA_TM_VERSION 26}
 %define origin oracle
 %define DYNAMIC_LOADER_NAME ld-linux-x86-64.so.2()(64bit)
 %define __jar_repack %{nil}
 
-Name: devoxx-ex3-jdk-%{javaversion}_%{javarelease}-64bit
+Name: devoxx-ex3-jdk-%{JAVA_VERSION}_%{JAVA_RELEASE}-64bit
 Version: 1.0.0	
 Release: 1%{?dist}
 Summary: a JDK
@@ -30,44 +32,45 @@ AutoReqProv: no
 # provides >= 1.6.0 must specify the epoch, "java >= 1:1.6.0".
 Epoch: 1
 
-Provides: jre-%{javaversion}-%{origin} = %{epoch}:%{version}-%{release}
+Provides: jre-%{JAVA_VERSION}-%{origin} = %{epoch}:%{version}-%{release}
 Provides: jre-%{origin} = %{epoch}:%{version}-%{release}
-Provides: jre-%{javaversion} = %{epoch}:%{version}-%{release}
-Provides: jre = %{epoch}:%{javaversion}
-Provides: java-%{javaversion}-%{origin} = %{epoch}:%{version}-%{release}
-Provides: java-%{javaversion} = %{epoch}:%{version}-%{release}
-Provides: java-%{origin} = %{javaversion}
-Provides: java = %{epoch}:%{javaversion}
-Provides: jdk-%{javaversion}-%{origin} = %{epoch}:%{version}-%{release}
-Provides: jdk-%{javaversion} = %{epoch}:%{version}-%{release}
-Provides: jdk-%{origin} = %{epoch}:%{javaversion}
-Provides: jdk = %{epoch}:%{javaversion}
+Provides: jre-%{JAVA_VERSION} = %{epoch}:%{version}-%{release}
+Provides: jre = %{epoch}:%{JAVA_VERSION}
+Provides: java-%{JAVA_VERSION}-%{origin} = %{epoch}:%{version}-%{release}
+Provides: java-%{JAVA_VERSION} = %{epoch}:%{version}-%{release}
+Provides: java-%{origin} = %{JAVA_VERSION}
+Provides: java = %{epoch}:%{JAVA_VERSION}
+Provides: jdk-%{JAVA_VERSION}-%{origin} = %{epoch}:%{version}-%{release}
+Provides: jdk-%{JAVA_VERSION} = %{epoch}:%{version}-%{release}
+Provides: jdk-%{origin} = %{epoch}:%{JAVA_VERSION}
+Provides: jdk = %{epoch}:%{JAVA_VERSION}
 
 Requires: %{DYNAMIC_LOADER_NAME}
 
-Source0: jdk-8u40-linux-x64.tar.gz
+Source0: jdk-%{JAVA_TM_VERSION}u%{JAVA_RELEASE}-linux-x64.tar.gz
 
 
 %description
-This Package is an example package for Linux Packaging Lab in Devoxx France
+This Package is an example package for Linux Packaging Lab in Devoxx France.
+It packages a JDK in a custom path in the filesystem.
 
 # Prep is used to set up the environment for building the rpm package
 # Expansion of source tar balls are done in this section
 %prep
-mkdir -p $RPM_BUILD_DIR/%{installationPath}/jdk64/%{javaversion}_%{javarelease}
-cd $RPM_BUILD_DIR/%{installationPath}/jdk64/%{javaversion}_%{javarelease}
+mkdir -p $RPM_BUILD_DIR/%{installationPath}/jdk64/%{JAVA_VERSION}_%{JAVA_RELEASE}
+cd $RPM_BUILD_DIR/%{installationPath}/jdk64/%{JAVA_VERSION}_%{JAVA_RELEASE}
 tar xzf %{SOURCE0}
 
 # In this case we're only going to put our files into a directory structure similar to
 # the required directory structure after installation
 %install
-mkdir -p $RPM_BUILD_ROOT%{installationPath}/jdk64/%{javaversion}_%{javarelease}/
-mv $RPM_BUILD_DIR%{installationPath}/jdk64/%{javaversion}_%{javarelease}/jdk1.8.0_40/* \
-   $RPM_BUILD_ROOT%{installationPath}/jdk64/%{javaversion}_%{javarelease}/
+mkdir -p $RPM_BUILD_ROOT%{installationPath}/jdk64/%{JAVA_VERSION}_%{JAVA_RELEASE}/
+mv $RPM_BUILD_DIR%{installationPath}/jdk64/%{JAVA_VERSION}_%{JAVA_RELEASE}/jdk%{JAVA_VERSION}_%{JAVA_RELEASE}/* \
+   $RPM_BUILD_ROOT%{installationPath}/jdk64/%{JAVA_VERSION}_%{JAVA_RELEASE}/
 
 %files
 %defattr(-,root,root,-)
-%{installationPath}/jdk64/%{javaversion}_%{javarelease}/*
+%{installationPath}/jdk64/%{JAVA_VERSION}_%{JAVA_RELEASE}/*
 
 %changelog
 * Wed Apr 8 2015 Pierre-Antoine Gregoire <pierre.antoine.gregoire@gmail.com>

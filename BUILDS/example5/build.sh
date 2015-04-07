@@ -4,11 +4,12 @@ download(){
 FOLDER="$1"
 URL="$2"
 TARGET_NAME="$3"
+HEADERS="$4"
 mkdir -p /BINARIES/${FOLDER}/
 if [ -f "/BINARIES/${FOLDER}/${TARGET_NAME}" ]; then
   cp /BINARIES/${FOLDER}/${TARGET_NAME} .
 else
-  wget --no-check-certificate --no-cookies  "${URL}" -O /BINARIES/${FOLDER}/${TARGET_NAME}
+  wget --no-check-certificate --no-cookies --header="${HEADERS}"  "${URL}" -O /BINARIES/${FOLDER}/${TARGET_NAME}
   cp /BINARIES/${FOLDER}/${TARGET_NAME} .
 fi
 }
@@ -63,5 +64,3 @@ rpmbuild --target=noarch \
   -bb SPECS/package.spec
 echo ----------------------------------------------------
 echo
-
-#. ./sign-deploy.sh $*

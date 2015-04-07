@@ -1,5 +1,18 @@
 #!/bin/sh
 
+download(){
+FOLDER="$1"
+URL="$2"
+TARGET_NAME="$3"
+HEADERS="$4"
+mkdir -p /BINARIES/${FOLDER}/
+if [ -f "/BINARIES/${FOLDER}/${TARGET_NAME}" ]; then
+  cp /BINARIES/${FOLDER}/${TARGET_NAME} .
+else
+  wget --no-check-certificate --no-cookies --header="${HEADERS}"  "${URL}" -O /BINARIES/${FOLDER}/${TARGET_NAME}
+  cp /BINARIES/${FOLDER}/${TARGET_NAME} .
+fi
+}
 
 echo ----------------------------------------------------
 echo Build-Specific variables
@@ -36,13 +49,9 @@ echo Downloading JDK Binary
 echo ----------------------------------------------------
 mkdir -p SOURCES
 pushd SOURCES
-mkdir -p /BINARIES/unrar/
-if [ -f "/BINARIES/unrar/unrarsrc-${PRODUCT_VERSION}.tar.gz" ]; then
-  cp /BINARIES/unrar/unrarsrc-${PRODUCT_VERSION}.tar.gz .
-else
-  wget "http://www.rarlab.com/rar/unrarsrc-${PRODUCT_VERSION}.tar.gz" -O /BINARIES/unrar/unrarsrc-${PRODUCT_VERSION}.tar.gz 
-  cp /BINARIES/unrar/unrarsrc-${PRODUCT_VERSION}.tar.gz .
-fi
+download unrar \
+  http://www.rarlab.com/rar/unrarsrc-${PRODUCT_VERSION}.tar.gz \
+  unrarsrc-${PRODUCT_VERSION}.tar.gz
 popd
 
 echo ----------------------------------------------------
@@ -55,5 +64,3 @@ rpmbuild --target="x86_64" \
   -bb SPECS/package.spec
 echo ----------------------------------------------------
 echo
-
-#. ./sign-deploy.sh $*

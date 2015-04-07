@@ -1,19 +1,19 @@
 %if 0%{?suse_version}
 %define dist .suse%{suse_version}
 %endif
-%define installationPath /opt/devoxx-rpm/
 
 Name: devoxx-ex2
 Version: 1.0.0	
 Release: 1%{?dist}
 Summary: a package with a dependency
 
-Group:	Phony
+Group:	Devoxx/Lab
 License: NoLicense
 Requires: devoxx-ex1
 
 %description
-This Package is an example package for Linux Packaging Lab in Devoxx France
+This Package is an example package for Linux Packaging Lab in Devoxx France.
+It provides nothing by itself, but has a dependency, i.e. Requires another package.
 
 %install
 

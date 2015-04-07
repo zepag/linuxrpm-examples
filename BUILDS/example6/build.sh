@@ -64,6 +64,3 @@ rpmbuild --target="x86_64" \
   -bb SPECS/package.spec
 echo ----------------------------------------------------
 echo
-
-# Optionally signing and deploying: launch script with "sign" and/or "deploy" arguments.
-#. ./sign-deploy.sh $*
