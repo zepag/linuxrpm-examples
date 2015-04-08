@@ -30,5 +30,5 @@ ln -s %{installationPath}/ex1/foobar.txt $RPM_BUILD_ROOT%{installationPath}/ex1/
 %attr(644,root,root) %{installationPath}/ex1/*
 
 %changelog
-* Wed Apr 8 2015 Pierre-Antoine Gregoire <pierre.antoine.gregoire@gmail.com>
+* Wed Apr 8 2015 Pierre-Antoine Gregoire <pierre.antoine.gregoire@gmail.com> 1.0.0-1
  - v1.0.0: First release
