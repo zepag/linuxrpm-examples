@@ -13,11 +13,11 @@ CONTAINER_HOST="$(echo ${TARGET_OS}|sed -e 's/\.//g').rpmbuild"
 TARGET_CONTAINER="zepag/rpmbuild-${TARGET_OS}"
 shift
 mkdir -p "$PWD/OUTPUT/${TARGET_OS}"
-for example in "$@"
+for rpm_source in "$@"
 do
-  if [ -f "$PWD/CUSTOM_CONTAINERS/${TARGET_OS}/${example}/Dockerfile" ]; then
-    pushd $PWD/CUSTOM_CONTAINERS/${TARGET_OS}/${example}/ 2>&1 > /dev/null
-    docker build -t "zepag/rpmbuild-${TARGET_OS}-${example}" . && TARGET_CONTAINER="zepag/rpmbuild-${TARGET_OS}-${example}"
+  if [ -f "$PWD/CUSTOM_CONTAINERS/${TARGET_OS}/${rpm_source}/Dockerfile" ]; then
+    pushd $PWD/CUSTOM_CONTAINERS/${TARGET_OS}/${rpm_source}/ 2>&1 > /dev/null
+    docker build -t "zepag/rpmbuild-${TARGET_OS}-${rpm_source}" . && TARGET_CONTAINER="zepag/rpmbuild-${TARGET_OS}-${rpm_sourceex}"
     popd 2>&1 > /dev/null
   fi
 done
