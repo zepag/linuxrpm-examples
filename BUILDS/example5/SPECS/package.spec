@@ -1,3 +1,9 @@
+# We don't need to compile python sources as we're just packaging them.
+# Moreover version 3.4.6 doesn't seem to compile with Python 2.7, therefore failing
+#  in systems where it's the default version.
+# The following disables python bytecompile.
+%global __os_install_post %(echo '%{__os_install_post}' | sed -e 's!/usr/lib[^[:space:]]*/brp-python-bytecompile[[:space:]].*$!!g')
+
 %if 0%{?suse_version}
 %define dist .suse%{suse_version}
 %endif

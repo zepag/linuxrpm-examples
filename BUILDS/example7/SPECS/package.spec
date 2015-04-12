@@ -3,7 +3,7 @@
 %endif
 %define installationPath /opt/devoxx-rpm/
 
-Name: devoxx-ex1
+Name: devoxx-ex7
 Version: 1.0.0	
 Release: 1%{?dist}
 Summary: a basic package adding a file in a known place and creating a link

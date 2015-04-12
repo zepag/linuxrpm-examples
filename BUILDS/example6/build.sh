@@ -44,16 +44,6 @@ else
 fi
 popd
 
-# cheating and adding a dependency for the build to work
-if [ -f /usr/bin/yum ]; then
-  yum -q -y install gnutls-devel
-elif [ -f /usr/bin/zypper ]; then
-  zypper -q --non-interactive install libgnutls-devel
-else
-  echo "Unable to determine package manager"
-  exit 2
-fi
-
 echo ----------------------------------------------------
 echo Build the RPM
 echo ----------------------------------------------------

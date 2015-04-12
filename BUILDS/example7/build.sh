@@ -34,13 +34,4 @@ rpmbuild --target=noarch \
 echo ----------------------------------------------------
 echo
 
-if [ -f /usr/bin/yum ]; then
-  yum -q -y install expect
-elif [ -f /usr/bin/zypper ]; then
-  zypper -q --non-interactive install expect
-else
-  echo "Unable to determine package manager"
-  exit 2
-fi
-
 . ./sign.sh 
